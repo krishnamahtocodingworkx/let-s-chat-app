@@ -6,6 +6,7 @@ import { connect } from "./lib/db.js";
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 5000;
+
 app.use(cookieParser());
 app.use(express.json());
 
