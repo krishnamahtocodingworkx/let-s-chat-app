@@ -35,7 +35,7 @@ export const signup = async (req, res) => {
       return res.status(200).json({
         status: 200,
         message: "User created successfully",
-        user: newUser,
+        data: newUser,
       });
     } else {
       return res.status(400).json({
@@ -81,7 +81,7 @@ export const login = async (req, res) => {
     res.status(200).json({
       status: 200,
       message: "User logged in successfully",
-      user: userData,
+      data: userData,
     });
   } catch (error) {
     console.log(`Error in login ${error}`);
@@ -109,6 +109,7 @@ export const logout = (req, res) => {
     return res.status(200).json({
       status: 200,
       message: "User logged out successfully",
+      data: {},
     });
   } catch (error) {
     console.log(`Error in Logout ${error}`);
@@ -139,7 +140,7 @@ export const updateProfile = async (req, res) => {
     res.status(200).json({
       status: 200,
       message: "Profile picture updated successfully",
-      user: updatedUser,
+      data: updatedUser,
     });
   } catch (error) {
     console.log(`Error in updateProfile ${error}`);
@@ -155,7 +156,7 @@ export const checkAuth = async (req, res) => {
     res.status(200).json({
       status: 200,
       message: "User found",
-      user: req.user,
+      data: req.user,
     });
   } catch (error) {
     console.log(`Error in checkAuth ${error}`);
