@@ -112,6 +112,26 @@ const AuthService = {
       callback({ isSuccess: false, ...error });
     }
   },
+  doUpdateProfile: async (params: any): Promise<APIResponseModal> => {
+    return new Promise((resolve, reject) => {
+      ApiService.putApi(ENDPOINTS.AUTH.EDIT_PROFILE, params)
+        .then((res: any) => {
+          console.log("profile update response", res);
+          if (res?.data) {
+            resolve({
+              isSuccess: true,
+              data: res.data,
+              message: res.message,
+            });
+          }
+          reject({ ...res, isSuccess: false });
+        })
+        .catch((err) => {
+          console.log("error in update profile", err);
+          reject({ ...err, isSuccess: false });
+        });
+    });
+  },
 };
 
 export default AuthService;

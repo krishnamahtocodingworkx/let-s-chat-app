@@ -13,7 +13,7 @@ export const ENDPOINTS = {
     VERIFY_OTP: "/admin/verify-otp",
     PROFILE: "/admin/profile",
     CHANGE_PASSWORD: "/admin/change-password",
-    EDIT_PROFILE: "/admin/profile",
+    EDIT_PROFILE: "/api/auth/update-profile",
     RESET_PASSWORD: "/admin/reset-password",
   },
   USERS: {

@@ -4,6 +4,7 @@ import {
   manualLogin,
   manualLogout,
   manualForgetPassword,
+  updateProfile,
 } from "./AuthThunk";
 type authReducer = {
   loading: boolean;
@@ -57,29 +58,45 @@ const authSlice = createSlice({
       };
     });
     //   // Login cases
-      builder.addCase(manualLogin.pending, (state) => {
-        return {
-          ...state,
-          ...{ loading: true },
-        };
-      });
-      builder.addCase(manualLogin.fulfilled, (state, action) => {
-        return {
-          ...state,
-          ...{
-            loading: false,
-            userDetails: action.payload?.data,
-            accessToken: action.payload.data?.token,
-          },
-        };
-      });
-      builder.addCase(manualLogin.rejected, (state) => {
-        return {
-          ...state,
-          ...{ loading: false },
-        };
-      });
-
+    builder.addCase(manualLogin.pending, (state) => {
+      return {
+        ...state,
+        ...{ loading: true },
+      };
+    });
+    builder.addCase(manualLogin.fulfilled, (state, action) => {
+      return {
+        ...state,
+        ...{
+          loading: false,
+          userDetails: action.payload?.data,
+          accessToken: action.payload.data?.token,
+        },
+      };
+    });
+    builder.addCase(manualLogin.rejected, (state) => {
+      return {
+        ...state,
+        ...{ loading: false },
+      };
+    });
+    builder.addCase(updateProfile.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(updateProfile.fulfilled, (state, action) => {
+      return {
+        ...state,
+        ...{
+          loading: false,
+          userDetails: action.payload?.data,
+        },
+      };
+    });
+    builder.addCase(updateProfile.rejected, (state) => ({
+      ...state,
+      loading: false,
+    }));
     //   // Logout cases
     //   builder.addCase(manualLogout.pending, (state) => {
     //     return {

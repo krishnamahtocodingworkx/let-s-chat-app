@@ -123,7 +123,11 @@ export const logout = (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { profilePic, _id } = req.body;
-
+    if (!_id) {
+      return res
+        .status(400)
+        .json({ status: 400, message: "User ID is required" });
+    }
     if (!profilePic) {
       return res.status(400).json({
         status: 400,
@@ -131,10 +135,11 @@ export const updateProfile = async (req, res) => {
       });
     }
 
-    const uploadedProfilePic = cloudinary.uploader.upload(profilePic);
+    const uploadedProfilePic = await cloudinary.uploader.upload(profilePic);
     const updatedUser = await User.findByIdAndUpdate(
       _id,
-      { profilePic: uploadedProfilePic },
+      // { profilePic: uploadedProfilePic },
+      { profilePic: uploadedProfilePic.secure_url }, // Store only the image URL
       { new: true }
     );
     res.status(200).json({

@@ -73,3 +73,18 @@ export const manualForgetPassword = createAsyncThunk(
     }
   }
 );
+
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (payload: any, thunkApi) => {
+    try {
+      const response = await AuthService.doUpdateProfile(payload);
+      console.log('update profile response in thunk : ',response);
+      return thunkApi.fulfillWithValue(response);
+    } catch (error: any) {
+      console.log("Forget password error in thunk :", error);
+      // SHOW_ERROR_TOAST(error?.error?.message || error?.message);
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);

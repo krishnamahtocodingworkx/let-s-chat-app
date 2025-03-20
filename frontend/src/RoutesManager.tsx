@@ -13,7 +13,6 @@ const RoutesManager = () => {
   const pathname = window.location.pathname;
   const token = store.getState().auth.accessToken;
   const dispatch: Function = useDispatch();
-  console.log("token :", token);
   React.useEffect(() => {
     if (!token && pathname !== "/signup" && pathname !== "/login") {
       dispatch(checkAuth());
