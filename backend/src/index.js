@@ -14,13 +14,16 @@ app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:3001",
+    // origin: "*",
     credentials: true,
   })
 );
 
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);
-
+app.get("/", (req, res) => {
+  return res.send("Hello world");
+});
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
   connect();

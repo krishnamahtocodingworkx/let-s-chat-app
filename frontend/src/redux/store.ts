@@ -1,10 +1,42 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import authReducer from "./auth/AuthSlice";
+import { createLogger } from "redux-logger";
+import { persistStore, persistReducer } from "redux-persist";
 
+/**
+ * @name store
+ * @description store for redux state management along persistor on auth and logger
+ * @returns store for global state management
+ */
+
+const rootReducer = combineReducers({
+  // combining all slices to root Reducer
+  auth: authReducer,
+});
+
+const logger = createLogger({
+  // add logger for development mode only
+  predicate: () => process.env.NODE_ENV === "development",
+});
+
+const persistConfig = {
+  // persisting auth reducer
+  key: "root",
+  storage,
+  whitelist: ["auth"],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+/**
+ * @name store
+ * @description store for App with middleware
+ */
 export const store = configureStore({
-  reducer: {},
-})
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
+});
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export const persistor = persistStore(store);

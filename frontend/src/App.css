@@ -1,0 +1,86 @@
+/* NotFoundPage.css */
+
+.page_404 {
+  padding: 40px 0;
+  background: #fff;
+  font-family: 'Arvo', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.four_zero_four_bg {
+  background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+  height: 300px;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.error_code {
+  font-size: 100px;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  display: inline-block;
+  padding: 20px 40px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.content_box_404 {
+  margin-top: 20px;
+}
+
+.error_text {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+.error_message {
+  font-size: 18px;
+  color: #777;
+}
+
+.link_404 {
+  color: #fff !important;
+  padding: 12px 24px;
+  background: #39ac31;
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.link_404:hover {
+  background: #2e8b2e;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .error_code {
+    font-size: 70px;
+    padding: 15px 30px;
+  }
+
+  .error_text {
+    font-size: 22px;
+  }
+
+  .error_message {
+    font-size: 16px;
+  }
+
+  .link_404 {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+}

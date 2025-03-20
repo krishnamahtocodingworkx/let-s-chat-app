@@ -30,12 +30,12 @@ export const signup = async (req, res) => {
     const newUser = new User({ email, name, password: hashedPassword });
 
     if (newUser) {
-      generateToken(newUser._id, res);
+      const token = generateToken(newUser._id, res);
       await newUser.save();
       return res.status(200).json({
         status: 200,
         message: "User created successfully",
-        data: newUser,
+        data: { ...newUser, token },
       });
     } else {
       return res.status(400).json({
@@ -77,11 +77,11 @@ export const login = async (req, res) => {
     const userData = user.toObject();
     delete userData.password;
 
-    generateToken(user._id, res);
+    const token = generateToken(user._id, res);
     res.status(200).json({
       status: 200,
       message: "User logged in successfully",
-      data: userData,
+      data: { ...userData, token },
     });
   } catch (error) {
     console.log(`Error in login ${error}`);
@@ -152,6 +152,7 @@ export const updateProfile = async (req, res) => {
 };
 
 export const checkAuth = async (req, res) => {
+  console.log("check auth called :");
   try {
     res.status(200).json({
       status: 200,
