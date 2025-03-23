@@ -2,17 +2,20 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 export const protectRoute = async (req, res, next) => {
   try {
-    const authHeader = req.headers["authorization"];
-    const [scheme, tokenInHeader] = authHeader.split(" ");
+    // console.log("into protectRoute");
+    // const authHeader = req.headers["authorization"];
+    // console.log(" authHeader:", authHeader);
+    // const [scheme, tokenInHeader] = authHeader.split(" ");
     const tokenInCookie = req.cookies.jwt;
-    if (!tokenInCookie && !tokenInHeader) {
+    // if (!tokenInCookie && !tokenInHeader) {
+    if (!tokenInCookie) {
       return res.status(404).json({
         status: 404,
         message: "Unauthorized user, not logged in",
       });
     }
-    const token = tokenInHeader ? tokenInHeader : tokenInCookie;
-
+    // const token = tokenInHeader ? tokenInHeader : tokenInCookie;
+    const token = tokenInCookie;
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!decodedToken) {
